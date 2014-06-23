@@ -1,0 +1,41 @@
+\select@language {italian}
+\contentsline {section}{\numberline {1}Design}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Gli algoritmi sequenziali}{2}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}Algoritmo Quadratico}{2}{subsubsection.1.1.1}
+\contentsline {paragraph}{Osservazioni}{2}{section*.3}
+\contentsline {subsubsection}{\numberline {1.1.2}Algoritmo Lineare}{3}{subsubsection.1.1.2}
+\contentsline {paragraph}{Osservazioni}{3}{section*.4}
+\contentsline {subsection}{\numberline {1.2}I modelli paralleli}{3}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}Modello per l'algoritmo quadratico}{4}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}Modello per l'algoritmo lineare}{4}{subsubsection.1.2.2}
+\contentsline {paragraph}{Modello \textsf {Pipeline}}{4}{section*.5}
+\contentsline {paragraph}{Modello \textsf {Farm}}{4}{section*.6}
+\contentsline {section}{\numberline {2}Implementation}{5}{section.2}
+\contentsline {subsection}{\numberline {2.1}L'oggetto \textsf {Matrix}}{5}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Classi \textsf {Sequential} e \textsf {SequentialQuad}}{6}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Classe \textsf {ParallelQuad}}{6}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Classe \textsf {Parallel}}{6}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Classe \textsf {ParallelFarm}}{6}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.6}Classe \textsf {TestClass}}{7}{subsection.2.6}
+\contentsline {section}{\numberline {3}Performance}{7}{section.3}
+\contentsline {subsection}{\numberline {3.1}Performance dell'algoritmo quadratico}{7}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Performance dell'algoritmo lineare}{7}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Performance di \textsf {Parallel}}{7}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Performance di \textsf {ParallelFarm}}{8}{subsubsection.3.2.2}
+\contentsline {section}{\numberline {4}User Guide}{8}{section.4}
+\contentsline {subsection}{\numberline {4.1}Installation}{8}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Documentation}{8}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Software Usage}{9}{subsection.4.3}
+\contentsline {paragraph}{Sequential}{9}{section*.7}
+\contentsline {paragraph}{Parallel}{9}{section*.8}
+\contentsline {paragraph}{ParallelFarm}{9}{section*.9}
+\contentsline {paragraph}{SequentialQuad}{9}{section*.10}
+\contentsline {paragraph}{ParallelQuad}{9}{section*.11}
+\contentsline {subsection}{\numberline {4.4}Software Testing}{10}{subsection.4.4}
+\contentsline {section}{\numberline {5}Future Improvements}{10}{section.5}
+\contentsline {section}{\numberline {6}Software Application}{10}{section.6}
+\contentsline {section}{\numberline {7}Licence}{10}{section.7}
+\contentsline {section}{\numberline {A}Grafici delle performance}{11}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}Grafici delle performance di \textsf {Parallel}}{11}{subsection.A.1}
+\contentsline {subsection}{\numberline {A.2}Grafici delle performance di \textsf {ParallelFarm}}{12}{subsection.A.2}
+\contentsline {subsection}{\numberline {A.3}Grafici delle performance di \textsf {ParallelQuad}}{13}{subsection.A.3}

@@ -1,0 +1,205 @@
+.TH histogramthresholding l  "September 20, 2013" "version 1.0" "Histogram Thresholding"
+.SH NAME
+histogramthresholding \- Software per il calcolo dell'histogram thresholding utilizzando un framework parallelo.
+.SH SYNOPSIS
+
+.B "ant Parallel"
+[-Dthread=
+.I "thread"
+] [-Dstream=
+.I "streamsize"
+] [-Drow=
+.I "rowsize"
+] [-Dcol=
+.I "colsize"
+] [-Dthre=
+.I "threshold"
+] [-Dheap=
+.I "heapsize" 
+]
+.br
+
+.br
+.B "ant Sequential"
+[-Dstream=
+.I "streamsize"
+] [-Drow=
+.I "rowsize"
+] [-Dcol=
+.I "colsize"
+] [-Dthre=
+.I "threshold"
+] [-Dheap=
+.I "heapsize"
+]
+.br
+
+.br
+.B "ant ParallelFarm"
+[-Dthread=
+.I "thread"
+] [-Dstream=
+.I "streamsize"
+] [-Drow=
+.I "rowsize"
+] [-Dcol=
+.I "colsize"
+] [-Dthre=
+.I "threshold"
+] [-Dheap=
+.I "heapsize"
+]
+.br
+
+.br
+.B "ant ParallelQuad"
+[-Dthread=
+.I "thread"
+] [-Dstream=
+.I "streamsize"
+] [-Drow=
+.I "rowsize"
+] [-Dcol=
+.I "colsize"
+] [-Dthre=
+.I "threshold"
+] [-Dheap=
+.I "heapsize"
+]
+.br
+
+.br
+.B "ant SequentialQuad"
+[-Dstream=
+.I "streamsize"
+] [-Drow=
+.I "rowsize"
+] [-Dcol=
+.I "colsize"
+] [-Dthre=
+.I "threshold"
+] [-Dheap=
+.I "heapsize"
+]
+.br
+
+.SH DESCRIPTION
+histogramthresholding e' un software che realizza il calcolo dell'histogram thresholding su uno stream di matrici. Il calcolo viene realizzato utilizzando un framework parallelo al fine di sfruttare a pieno tutte le unita' di calcolo di un sistema multicore.
+.PP
+Il software nasce con uno scopo puramente accademico ed e' stato realizzato per valutare le performance del framework parallelo utilizzato.
+.PP
+Il software e' stato realizzato in java ed e' possibile compilarlo ed eseguirlo tramite l'utility
+.B ant
+Senza tale utility si dovra' provvedere a compilare il progetto manualmente.
+Per poter compilare ed utilizzare il progetto risulta necessario disporre del 
+.B "Java Development Kit (JDK) versione 6"
+
+Sono disponibili differenti implementazioni dell'algoritmo per il calcolo dell'histogram thresholding al fine di poter confrontare il loro comportamento al variare dei parametri in input
+
+.SH DIFFERENT IMPLEMENTATION
+.TP 4
+.B Parallel
+Il calcolo viene effettuato tramite in parallelo tramite un
+.B Pipeline a due stadi
+il primo stadio effettua una
+.B Map
+e calcola l'istogramma dell'immagine in parallelo, mentre il secondo stadio effettua comunque una
+.B Map
+e aggiorna la matrice con il valore di soglia
+
+.TP 4
+.B Sequential
+Il calcolo viene effettuato in sequenziale, calcolando prima l'istogramma e successivamente la matrice aggiornata in base al valore di soglia
+
+.TP 4
+.B ParallelFarm
+Il calcolo viene effettuato tramite in parallelo tramite un
+.B Farm
+che si occupa di replicare su piu' worker il calcolo sequenziale relizzato tramite
+.B Sequential
+
+.TP 4
+.B SequentialQuad
+Il calcolo viene effettuato in sequenziale, tramite un algoritmo che calcola per ogni punto della matrice il numero di pixel che sono inferiori (algoritmo quadratico).
+Tale algoritmo risulta particolarmente inefficente, ma comunque interessante dal punto di vista accademico
+
+.TP 4
+.B ParallelQuad
+Il calcolo viene effettuato in parallelo, utilizzando lo stesso algoritmo di 
+.B SequentialQuad
+ma utilizzando una
+.B Map
+per parallelizzare il calcolo fra piu' worker. Tale algoritmo risulta particolarmente inefficente, ma comunque interessante dal punto di vista accademico
+
+.SH OPTIONS
+
+histogram thresholding puo' essere invocato con alcuni parametri per modificare il numero e le dimensioni delle matrici da calcolare.
+.PP
+Se i parametri non vengono impostati, verranno utilizzati dei valori di default
+.TP
+\-Dthread=thread
+Imposta il numero di thread che devono essere utilizzati per effettuare il calcolo parallelo.
+Questo parametro viene trascurato nel caso di 
+.B Sequential
+e
+.B SequentialQuad
+.TP
+-Dstream=streamsize
+Imposta la dimensione dello stream di matrici che deve essere passato in input per essere calcolato
+.TP
+-Drow=rowsize
+Imposta la dimensione in righe delle matrici che devono essere passate in input
+.TP
+-Dcol=colsize
+Imposta la dimensione in colonne delle matrici che devono essere passate in input
+.TP
+-Dthre=threshold
+Imposta il valore di soglia su cui fare il calcolo (tra 0 e 0.99).
+.TP
+-Dheap=heapsize
+Imposta la dimensione massima per la memoria da usare per la JVM, di default settato a 3072m
+
+.SH EXAMPLES
+
+Ecco alcuni esempi di invocazioni corrette.
+.TP
+Calcola utilizzato l'implementazione Parallel uno stream di 10 matrici di dimensione 1000x1000, come valore di soglia si utilizza 0.5 e si avviano 4 worker utilizzando al piu' 1 Gb di memoria.
+.B ant Parallel
+\-Dthread=4 -Dstream=10 -Drow=1000 -Dcol=1000 -Dthre=0.5 -Dheap=1024m
+
+.TP
+Calcola utilizzato l'implementazione Sequential uno stream di 100 matrici di dimensione predefinita, come valore di soglia si utilizza 0.12
+.B ant Sequential
+\-Dstream=100 -Dthre=0.12
+
+.SH DOCUMENTATION
+
+.TP
+Il progetto e' corredato di documentazione in javadoc, ed e' possibile generarla utilizzando il comando
+.B ant javadoc
+.TP 0
+La documentazione si trovera' all'interno della cartella
+.B doc/
+e potra' essere visionata tramite un normale browser.
+
+.SH JAR
+
+.TP
+E' possibile generare un jar eseguibile del progetto utilizzando il comando
+.B ant jar
+.TP 0
+Verra' cosi' generato un file di nome
+.B histogramthresholding.jar
+contenenten la versione compilata del progetto, ideale per essere distribuita online.
+
+.SH NOTES
+
+.B Attenzione:
+Le implementazioni
+.B SequentialQuad
+e
+.B ParallelQuad
+utilizzano degli algoritmi molto inefficenti e possono portare a computazioni di durata molto lunga, se ne sconsiglia quindi con matrici di dimensioni troppo grosse.
+
+.SH AUTHOR
+Nicola Corti <cortin [at] cli.di.unipi.it>
