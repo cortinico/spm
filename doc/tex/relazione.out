@@ -1,0 +1,31 @@
+\BOOKMARK [1][-]{section.1}{Design}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Gli algoritmi sequenziali}{section.1}% 2
+\BOOKMARK [3][-]{subsubsection.1.1.1}{Algoritmo Quadratico}{subsection.1.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.1.2}{Algoritmo Lineare}{subsection.1.1}% 4
+\BOOKMARK [2][-]{subsection.1.2}{I modelli paralleli}{section.1}% 5
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Modello per l'algoritmo quadratico}{subsection.1.2}% 6
+\BOOKMARK [3][-]{subsubsection.1.2.2}{Modello per l'algoritmo lineare}{subsection.1.2}% 7
+\BOOKMARK [1][-]{section.2}{Implementation}{}% 8
+\BOOKMARK [2][-]{subsection.2.1}{L'oggetto Matrix}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.2}{Classi Sequential e SequentialQuad}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.3}{Classe ParallelQuad}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.4}{Classe Parallel}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.5}{Classe ParallelFarm}{section.2}% 13
+\BOOKMARK [2][-]{subsection.2.6}{Classe TestClass}{section.2}% 14
+\BOOKMARK [1][-]{section.3}{Performance}{}% 15
+\BOOKMARK [2][-]{subsection.3.1}{Performance dell'algoritmo quadratico}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.2}{Performance dell'algoritmo lineare}{section.3}% 17
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Performance di Parallel}{subsection.3.2}% 18
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Performance di ParallelFarm}{subsection.3.2}% 19
+\BOOKMARK [1][-]{section.4}{User Guide}{}% 20
+\BOOKMARK [2][-]{subsection.4.1}{Installation}{section.4}% 21
+\BOOKMARK [2][-]{subsection.4.2}{Documentation}{section.4}% 22
+\BOOKMARK [2][-]{subsection.4.3}{Software Usage}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.4}{Software Testing}{section.4}% 24
+\BOOKMARK [1][-]{section.5}{Future Improvements}{}% 25
+\BOOKMARK [1][-]{section.6}{Software Application}{}% 26
+\BOOKMARK [1][-]{section.7}{Licence}{}% 27
+\BOOKMARK [1][-]{appendix.A}{Grafici delle performance}{}% 28
+\BOOKMARK [2][-]{subsection.A.1}{Grafici delle performance di Parallel}{appendix.A}% 29
+\BOOKMARK [2][-]{subsection.A.2}{Grafici delle performance di ParallelFarm}{appendix.A}% 30
+\BOOKMARK [2][-]{subsection.A.3}{Grafici delle performance di ParallelQuad}{appendix.A}% 31

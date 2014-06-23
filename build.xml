@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+    <project basedir="." default="build" name="SPM">
+    <property environment="env"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    
+    <property name="thread" value="4" />
+    <property name="stream" value="1" />
+    <property name="row" value="5000" />
+    <property name="col" value="5000" />
+    <property name="thre" value="0.5" />
+    <property name="heap" value="3072m" />    
+    
+    <path id="SPM.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/skandium-1.0b2.jar"/>
+    </path>
+    
+    <target name="javadoc">
+        <javadoc destdir="doc/"
+           packagenames="it.ncorti.histogramthresholding.*"
+           sourcepath="src"
+           excludepackagenames="cl.niclabs.skandium.*"
+           defaultexcludes="yes"
+           author="true"
+           version="true"
+           use="true">
+           <classpath refid="SPM.classpath"/>
+        </javadoc>
+    </target>
+    
+    <target name="init">
+        <echo message="Initializing working set" />
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    
+    <target depends="init" name="build">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="SPM.classpath"/>
+        </javac>
+    </target>
+    
+    <target name="jar" depends="build">
+        <jar destfile="histogramthresholding.jar">
+   		<fileset dir="bin"/>
+    	<zipfileset includes="**/*.class" src="lib/skandium-1.0b2.jar"/>
+    	<manifest>
+      	<attribute name="Main-Class"
+            value="it.ncorti.histogramthresholding.TestClass"/>
+    	</manifest>
+  		</jar>
+    </target>
+    
+    <target name="Parallel" depends="build">
+        <java classname="it.ncorti.histogramthresholding.TestClass" failonerror="true" fork="yes">
+            <jvmarg line="-Xmx${heap}"/>
+            
+            <arg value="par"/>
+            <arg value="${thread}"/>
+            <arg value="${stream}"/>
+            <arg value="${row}"/>
+            <arg value="${col}"/>
+            <arg value="${thre}"/>
+            
+            <classpath refid="SPM.classpath"/>
+        </java>
+    </target>
+    
+    <target name="Sequential" depends="build">
+        <java classname="it.ncorti.histogramthresholding.TestClass" failonerror="true" fork="yes">
+            <jvmarg line="-Xmx${heap}"/>
+            
+            <arg value="seq"/>
+            <arg value="${stream}"/>
+            <arg value="${row}"/>
+            <arg value="${col}"/>
+            <arg value="${thre}"/>
+            
+            <classpath refid="SPM.classpath"/>
+        </java>
+    </target>
+    
+    <target name="ParallelFarm" depends="build">
+        <java classname="it.ncorti.histogramthresholding.TestClass" failonerror="true" fork="yes">
+            <jvmarg line="-Xmx${heap}"/>
+            
+            <arg value="farm"/>
+            <arg value="${thread}"/>
+            <arg value="${stream}"/>
+            <arg value="${row}"/>
+            <arg value="${col}"/>
+            <arg value="${thre}"/>
+            
+            <classpath refid="SPM.classpath"/>
+        </java>
+    </target>
+    
+    <target name="SequentialQuad" depends="build">
+        <java classname="it.ncorti.histogramthresholding.TestClass" failonerror="true" fork="yes">
+            <jvmarg line="-Xmx${heap}"/>
+            
+            <arg value="quadseq"/>
+            <arg value="${stream}"/>
+            <arg value="${row}"/>
+            <arg value="${col}"/>
+            <arg value="${thre}"/>
+            
+            <classpath refid="SPM.classpath"/>
+        </java>
+    </target>
+    
+    <target name="ParallelQuad" depends="build">
+        <java classname="it.ncorti.histogramthresholding.TestClass" failonerror="true" fork="yes">
+            <jvmarg line="-Xmx${heap}"/>
+            
+            <arg value="quadpar"/>
+            <arg value="${thread}"/>
+            <arg value="${stream}"/>
+            <arg value="${row}"/>
+            <arg value="${col}"/>
+            <arg value="${thre}"/>
+            
+            <classpath refid="SPM.classpath"/>
+        </java>
+    </target>
+    
+    <target name="man">
+    <exec executable="/usr/bin/man"
+         failonerror="true"
+    	 osfamily="unix">
+  		<arg line="-l doc/man/histo.man"/>
+	</exec>
+	</target>
+	
+    <target name="man-ps">
+    <exec executable="/usr/bin/man"
+         failonerror="true"
+    	 osfamily="unix"
+    	 output="doc/man/histo.ps">
+  		<arg line="-Tps doc/man/histo.man"/>
+	</exec>
+	</target>
+	
+    <target name="man-html">
+    <exec executable="/usr/bin/man2html"
+         failonerror="true"
+    	 osfamily="unix"
+    	 output="doc/man/histo.html">
+  		<arg line="doc/man/histo.man"/>
+	</exec>
+	</target>
+
+<!--
+    <target name="latex">
+    <exec executable="/usr/bin/pdflatex"
+         failonerror="true"
+    	 osfamily="unix">
+		  		
+		<arg line="-output-directory doc/tex doc/tex/relazione.tex "/>
+		<env key="TEXINPUT" value=".:doc/tex//:"/>
+	</exec>
+	<exec executable="/usr/bin/pdflatex"
+         failonerror="true"
+    	 osfamily="unix">
+		 
+  		<arg line="-output-directory doc/tex doc/tex/relazione.tex "/>
+		<env key="TEXINPUT" value=".:doc/tex//:"/>
+	</exec>
+    </target>
+-->
+</project>

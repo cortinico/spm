@@ -1,0 +1,324 @@
+Content-type: text/html
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>Man page of histogramthresholding</TITLE>
+</HEAD><BODY>
+<H1>histogramthresholding</H1>
+Section: Histogram Thresholding (l)<BR>Updated: September 20, 2013<BR><A HREF="#index">Index</A>
+<A HREF="/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+histogramthresholding - Software per il calcolo dell'histogram thresholding utilizzando un framework parallelo.
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<P>
+<B>ant Parallel</B>
+
+[-Dthread=
+<I>thread</I>
+
+] [-Dstream=
+<I>streamsize</I>
+
+] [-Drow=
+<I>rowsize</I>
+
+] [-Dcol=
+<I>colsize</I>
+
+] [-Dthre=
+<I>threshold</I>
+
+] [-Dheap=
+<I>heapsize </I>
+
+]
+<BR>
+
+<P>
+<BR>
+
+<B>ant Sequential</B>
+
+[-Dstream=
+<I>streamsize</I>
+
+] [-Drow=
+<I>rowsize</I>
+
+] [-Dcol=
+<I>colsize</I>
+
+] [-Dthre=
+<I>threshold</I>
+
+] [-Dheap=
+<I>heapsize</I>
+
+]
+<BR>
+
+<P>
+<BR>
+
+<B>ant ParallelFarm</B>
+
+[-Dthread=
+<I>thread</I>
+
+] [-Dstream=
+<I>streamsize</I>
+
+] [-Drow=
+<I>rowsize</I>
+
+] [-Dcol=
+<I>colsize</I>
+
+] [-Dthre=
+<I>threshold</I>
+
+] [-Dheap=
+<I>heapsize</I>
+
+]
+<BR>
+
+<P>
+<BR>
+
+<B>ant ParallelQuad</B>
+
+[-Dthread=
+<I>thread</I>
+
+] [-Dstream=
+<I>streamsize</I>
+
+] [-Drow=
+<I>rowsize</I>
+
+] [-Dcol=
+<I>colsize</I>
+
+] [-Dthre=
+<I>threshold</I>
+
+] [-Dheap=
+<I>heapsize</I>
+
+]
+<BR>
+
+<P>
+<BR>
+
+<B>ant SequentialQuad</B>
+
+[-Dstream=
+<I>streamsize</I>
+
+] [-Drow=
+<I>rowsize</I>
+
+] [-Dcol=
+<I>colsize</I>
+
+] [-Dthre=
+<I>threshold</I>
+
+] [-Dheap=
+<I>heapsize</I>
+
+]
+<BR>
+
+<P>
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+histogramthresholding e' un software che realizza il calcolo dell'histogram thresholding su uno stream di matrici. Il calcolo viene realizzato utilizzando un framework parallelo al fine di sfruttare a pieno tutte le unita' di calcolo di un sistema multicore.
+<P>
+
+Il software nasce con uno scopo puramente accademico ed e' stato realizzato per valutare le performance del framework parallelo utilizzato.
+<P>
+
+Il software e' stato realizzato in java ed e' possibile compilarlo ed eseguirlo tramite l'utility
+<B>ant</B>
+
+Senza tale utility si dovra' provvedere a compilare il progetto manualmente.
+Per poter compilare ed utilizzare il progetto risulta necessario disporre del 
+<B>Java Development Kit (JDK) versione 6</B>
+
+<P>
+Sono disponibili differenti implementazioni dell'algoritmo per il calcolo dell'histogram thresholding al fine di poter confrontare il loro comportamento al variare dei parametri in input
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>DIFFERENT IMPLEMENTATION</H2>
+
+<DL COMPACT>
+<DT><B>Parallel</B>
+
+<DD>
+Il calcolo viene effettuato tramite in parallelo tramite un
+<B>Pipeline a due stadi</B>
+
+il primo stadio effettua una
+<B>Map</B>
+
+e calcola l'istogramma dell'immagine in parallelo, mentre il secondo stadio effettua comunque una
+<B>Map</B>
+
+e aggiorna la matrice con il valore di soglia
+<P>
+<DT><B>Sequential</B>
+
+<DD>
+Il calcolo viene effettuato in sequenziale, calcolando prima l'istogramma e successivamente la matrice aggiornata in base al valore di soglia
+<P>
+<DT><B>ParallelFarm</B>
+
+<DD>
+Il calcolo viene effettuato tramite in parallelo tramite un
+<B>Farm</B>
+
+che si occupa di replicare su piu' worker il calcolo sequenziale relizzato tramite
+<B>Sequential</B>
+
+<P>
+<DT><B>SequentialQuad</B>
+
+<DD>
+Il calcolo viene effettuato in sequenziale, tramite un algoritmo che calcola per ogni punto della matrice il numero di pixel che sono inferiori (algoritmo quadratico).
+Tale algoritmo risulta particolarmente inefficente, ma comunque interessante dal punto di vista accademico
+<P>
+<DT><B>ParallelQuad</B>
+
+<DD>
+Il calcolo viene effettuato in parallelo, utilizzando lo stesso algoritmo di 
+<B>SequentialQuad</B>
+
+ma utilizzando una
+<B>Map</B>
+
+per parallelizzare il calcolo fra piu' worker. Tale algoritmo risulta particolarmente inefficente, ma comunque interessante dal punto di vista accademico
+<P>
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<P>
+histogram thresholding puo' essere invocato con alcuni parametri per modificare il numero e le dimensioni delle matrici da calcolare.
+<P>
+
+Se i parametri non vengono impostati, verranno utilizzati dei valori di default
+<DL COMPACT>
+<DT>-Dthread=thread<DD>
+Imposta il numero di thread che devono essere utilizzati per effettuare il calcolo parallelo.
+Questo parametro viene trascurato nel caso di 
+<B>Sequential</B>
+
+e
+<B>SequentialQuad</B>
+
+<DT>-Dstream=streamsize<DD>
+Imposta la dimensione dello stream di matrici che deve essere passato in input per essere calcolato
+<DT>-Drow=rowsize<DD>
+Imposta la dimensione in righe delle matrici che devono essere passate in input
+<DT>-Dcol=colsize<DD>
+Imposta la dimensione in colonne delle matrici che devono essere passate in input
+<DT>-Dthre=threshold<DD>
+Imposta il valore di soglia su cui fare il calcolo (tra 0 e 0.99).
+<DT>-Dheap=heapsize<DD>
+Imposta la dimensione massima per la memoria da usare per la JVM, di default settato a 3072m
+<P>
+</DL>
+<A NAME="lbAG">&nbsp;</A>
+<H2>EXAMPLES</H2>
+
+<P>
+Ecco alcuni esempi di invocazioni corrette.
+<DL COMPACT>
+<DT>Calcola utilizzato l'implementazione Parallel uno stream di 10 matrici di dimensione 1000x1000, come valore di soglia si utilizza 0.5 e si avviano 4 worker utilizzando al piu' 1 Gb di memoria.<DD>
+<B>ant Parallel</B>
+
+-Dthread=4 -Dstream=10 -Drow=1000 -Dcol=1000 -Dthre=0.5 -Dheap=1024m
+<P>
+<DT>Calcola utilizzato l'implementazione Sequential uno stream di 100 matrici di dimensione predefinita, come valore di soglia si utilizza 0.12<DD>
+<B>ant Sequential</B>
+
+-Dstream=100 -Dthre=0.12
+<P>
+</DL>
+<A NAME="lbAH">&nbsp;</A>
+<H2>DOCUMENTATION</H2>
+
+<P>
+<DL COMPACT>
+<DT>Il progetto e' corredato di documentazione in javadoc, ed e' possibile generarla utilizzando il comando<DD>
+<B>ant javadoc</B>
+
+<DT>La documentazione si trovera' all'interno della cartella<DD>
+<B>doc/</B>
+
+e potra' essere visionata tramite un normale browser.
+<P>
+</DL>
+<A NAME="lbAI">&nbsp;</A>
+<H2>JAR</H2>
+
+<P>
+<DL COMPACT>
+<DT>E' possibile generare un jar eseguibile del progetto utilizzando il comando<DD>
+<B>ant jar</B>
+
+<DT>Verra' cosi' generato un file di nome<DD>
+<B>histogramthresholding.jar</B>
+
+contenenten la versione compilata del progetto, ideale per essere distribuita online.
+<P>
+</DL>
+<A NAME="lbAJ">&nbsp;</A>
+<H2>NOTES</H2>
+
+<P>
+<B>Attenzione:</B>
+
+Le implementazioni
+<B>SequentialQuad</B>
+
+e
+<B>ParallelQuad</B>
+
+utilizzano degli algoritmi molto inefficenti e possono portare a computazioni di durata molto lunga, se ne sconsiglia quindi con matrici di dimensioni troppo grosse.
+<P>
+<A NAME="lbAK">&nbsp;</A>
+<H2>AUTHOR</H2>
+
+Nicola Corti &lt;cortin [at] cli.di.unipi.it&gt;
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">DIFFERENT IMPLEMENTATION</A><DD>
+<DT><A HREF="#lbAF">OPTIONS</A><DD>
+<DT><A HREF="#lbAG">EXAMPLES</A><DD>
+<DT><A HREF="#lbAH">DOCUMENTATION</A><DD>
+<DT><A HREF="#lbAI">JAR</A><DD>
+<DT><A HREF="#lbAJ">NOTES</A><DD>
+<DT><A HREF="#lbAK">AUTHOR</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 10:47:29 GMT, February 25, 2014
+</BODY>
+</HTML>
