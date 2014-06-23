@@ -7,6 +7,8 @@ Il progetto fa parte del corso di Sistemi Distribuiti: Paradigmi e Modelli, dell
 
 Il progetto è stato realizzato in Java, utilizzando il framework parallelo [Skandium](https://github.com/mleyton/Skandium).
 
+![Lenna](../../raw/master/doc/tex/lenna_readme.png)
+
 ## Documentazione
 
 E' possibile apprendere tutti i dettagli del progetto leggendo la [Relazione del Progetto](../../raw/master/doc/tex/relazione.pdf) oppure consultanto la documentazione in formato [JavaDoc](http://cortinico.github.io/spm)
